@@ -25,12 +25,24 @@
   "The Bitbucket API version.")
 
 (defconst bitbucket-host "https://api.bitbucket.org/"
-  "The Bitbucket API version.")
+  "The Bitbucket hostname.")
+
+(defvar bitbucket-basic-auth nil
+  "The Bitbucket Basic Authentication token.")
+
 
 (defun bitbucket--get-rest-uri (uri)
-  "Retrieve the Bitbucket API complete url using the API version.
-`URI` is the api path."
-      (s-concat bitbucket-host bitbucket-api-version "/" uri))
+  "Retrieve the Bitbucket API url.
+URI: the api path."
+  (s-concat bitbucket-host bitbucket-api-version "/" uri))
+
+(defun bitbucket--get-basic-auth ()
+  "Retrieve the Bitbucket auth token.
+Use `bitbucket-basic-auth' or BITBUCKET_BASIC_AUTH environment variable"
+  (if bitbucket-basic-auth
+    bitbucket-basic-auth
+    (getenv "BITBUCKET_BASIC_AUTH")))
+
 
 (provide 'bitbucket-api)
 ;;; bitbucket-api.el ends here

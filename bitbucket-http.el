@@ -23,50 +23,57 @@
 (require 'request)
 (require 'bitbucket-api)
 
+(defun bitbucket--get-headers ()
+  "Return the HTTP headers for Bitbucket API."
+  (list (cons "Authorization" (s-concat "Basic " (bitbucket--get-basic-auth)))
+    (cons "connection" "close")))
+
 (defun bitbucket--perform-get-request (uri params)
   "Doc string URI PARAMS."
   (let* ((response (request (bitbucket--get-rest-uri uri)
-                            :type "GET"
-                            :sync t
-                            :params params
-                            ;;:data params
-                            :parser 'json-read)))
+                     :type "GET"
+                     :headers (bitbucket--get-headers)
+                     :sync t
+                     :params params
+                     :parser 'json-read)))
     response))
 
 (defun bitbucket--perform-post-request (uri params)
   "Doc string URI PARAMS."
   (let ((response (request (bitbucket--get-rest-uri uri)
-                           :type "POST"
-                           :sync t
-                           :data params
-                           :parser 'json-read)))
+                    :type "POST"
+                    :headers (bitbucket--get-headers)
+                    :sync t
+                    :data params
+                    :parser 'json-read)))
     response))
 
 (defun bitbucket--perform-put-request (uri params)
   "Doc string URI PARAMS."
   (let ((response (request (bitbucket--get-rest-uri uri)
-                           :type "PUT"
-                           :sync t
-                           :data params
-                           :parser 'json-read)))
+                    :type "PUT"
+                    :headers (bitbucket--get-headers)
+                    :sync t
+                    :data params
+                    :parser 'json-read)))
     response))
 
 (defun perform-bitbucket-request (type uri params status-code)
   "Doc string TYPE URI PARAMS STATUS-CODE."
   (let ((response
-         (cond ((string= type "POST")
-		(bitbucket--perform-post-request uri params))
-	       ((string= type "GET")
-		(bitbucket--perform-get-request uri params))
-	       ((string= type "PUT")
-		(bitbucket--perform-put-request uri params)))))
+          (cond ((string= type "POST")
+                  (bitbucket--perform-post-request uri params))
+            ((string= type "GET")
+              (bitbucket--perform-get-request uri params))
+            ((string= type "PUT")
+              (bitbucket--perform-put-request uri params)))))
     (if (= status-code (request-response-status-code response))
-        (request-response-data response)
+      (request-response-data response)
       (lwarn '(bitbucket)
-             :error "HTTP %s Error %s on URI: %s"
-             type
-             (request-response-status-code response)
-             uri))))
+        :error "HTTP %s Error %s on URI: %s"
+        type
+        (request-response-status-code response)
+        uri))))
 
 
 (provide 'bitbucket-http)

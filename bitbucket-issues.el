@@ -51,15 +51,15 @@ PARAMS: an alist for query parameters"
 USERNAME: the project username
 REPO_SLUG: the repository slug"
   (cdr (assq 'size (perform-bitbucket-request "GET"
-                                   (s-concat "repositories/"
-                                     (url-hexify-string
-                                       (format "%s" username))
-                                     "/"
-                                     (url-hexify-string
-                                       (format "%s" repo_slug))
-                                     "/issues")
-                                   nil
-                                   200))))
+                     (s-concat "repositories/"
+                       (url-hexify-string
+                         (format "%s" username))
+                       "/"
+                       (url-hexify-string
+                         (format "%s" repo_slug))
+                       "/issues")
+                     nil
+                     200))))
 
 (defun bitbucket-issues-list-all (username repo_slug &optional params)
   "A list of all issues for the given repo.
