@@ -1,6 +1,16 @@
 # Bitbucket.el #
 
-An Emacs wrapper for the Bitbucket API
+An Emacs wrapper for the Bitbucket API.
+
+## Installation ##
+
+Currently, you have to manually install the software.p
+
+```lisp
+(add-to-list 'load-path "my-package-directory")
+```
+
+I am working on getting the package into MELPA. You can track the progress through [this pull request](https://github.com/melpa/melpa/pull/4682)
 
 ## Authentication ##
 
