@@ -15,7 +15,7 @@ The token is created by base64 encoding your username and password. In emacs you
 
 (If you are using 2-factor-authentication, set a app password, and use that instead of the user password.)
 
-You can apply the token pragmatically:
+You can apply the token programmatically:
 
 ```lisp
 (setq bitbucket-basic-auth "my-basic-auth-token"))
