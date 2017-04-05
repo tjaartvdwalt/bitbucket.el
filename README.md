@@ -4,7 +4,7 @@ An Emacs wrapper for the Bitbucket API.
 
 ## Installation ##
 
-Currently, you have to manually install the software.p
+Currently, you have to manually install the package.
 
 ```lisp
 (add-to-list 'load-path "my-package-directory")
@@ -14,16 +14,16 @@ I am working on getting the package into MELPA. You can track the progress throu
 
 ## Authentication ##
 
-Currently the Basic Authentication scheme is supported. 
+Basic Authentication is supported. 
 
-The token is created by base64 encoding your username and password. In emacs you can do this with the following code.
+The access token is created by base64 encoding your username and password. In emacs you can do this with the following code.
 
 ```lisp
 (base64-encode-string
    (concat "username" ":" "password"))
 ```
 
-(If you are using 2-factor-authentication, set a app password, and use that instead of the user password.)
+(If you are using 2-factor-authentication, set an app password, and use that instead of the user password.)
 
 You can apply the token programmatically:
 
